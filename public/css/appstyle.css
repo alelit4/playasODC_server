@@ -1,0 +1,86 @@
+
+.input-group-btn {
+	padding: 2px 2px 2px 2px;
+    font-size: inherit;
+
+}
+
+.input-group-btn input {
+    width: 80%;
+    height: 100%;
+	padding: 1px 2px 3px 2px;
+    font-size: inherit;
+
+}
+
+
+/* Home video */
+#video_background { 
+    position: absolute;
+    bottom: 0px; 
+    right: 0px; 
+    min-width: 100%; 
+    min-height: 100%; 
+    width: auto; 
+    height: auto; 
+    z-index: -1000; 
+    overflow: hidden
+}
+
+#video_pattern { 
+    background-image: url(../images/demo1.png);
+    position: fixed; 
+    opacity: 0.8; 
+    left: 0px; 
+    top: 0px; 
+    width: 100%; 
+    height: 100%;
+    z-index: 1
+}
+
+/* Home Style */
+
+
+.containerhome {
+    width: 26%;
+    height: 26%;
+}
+
+/* resize images */
+.containerhome img {
+	padding-top: 20%;
+    width: 100%;
+}
+
+#submit{
+	margin-top: 6%;
+ 	width: 100%;
+}
+
+ /*resize images */
+.containerhome button {
+    width: 100%;
+
+}
+
+.footer {
+   margin-left: 40%;
+   position: absolute;
+   bottom:0;
+
+}
+
+.footer p{
+	color: #CFDAD8;
+}
+
+/*Para la selección de los parámetros de búsqueda (Trackings)*/
+#invisible{
+    color: #ccc;
+}
+
+.logo h1 {
+    font-size: 90px;
+    padding-top: 100px;
+    color: #ffffff;
+}

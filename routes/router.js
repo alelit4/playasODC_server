@@ -21,10 +21,12 @@ module.exports = function (app) {
 
     /* Usuarios */
     app.get('/usuarios', usuarios.getall);
+    app.get('/usuarios/:idFacebook', usuarios.get);
     app.put('/usuarios', usuarios.new);
     app.post('/usuarios/:idFacebook', usuarios.edit);
     app.delete('/usuarios/:idFacebook', usuarios.delete); // TODO -> arreglar (borra pero da error)
     app.delete('/borrarusuario/:id', usuarios.delete2); // para depurar
+    app.get('/playasfavoritas/:idFacebook', usuarios.favoritas);
 
     /* Checkin */
     app.get('/checkin', checkin.getall);

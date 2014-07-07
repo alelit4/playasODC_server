@@ -52,6 +52,19 @@ exports.edit = function (req, res, params) {
 
 };
 
+/* Get user */
+exports.get = function (req, res) {
+    UsuariosModel.findOne({idFacebook : req.params.idFacebook})
+        .exec(function (err, usuario) {
+            if (!err) {
+                res.send(usuario);
+            } else {
+                console.log(err);
+                res.send(respuestaError);
+            }
+        });
+};
+
 /* Delete user */
 exports.delete2 = function(req, res, params){
     UsuariosModel.findOne({_id : req.params.id})
@@ -67,6 +80,7 @@ exports.delete2 = function(req, res, params){
             res.send(respuestaError);
         });
 };
+
 
 /* Delete user */
 exports.delete = function(req, res, params){
@@ -84,6 +98,20 @@ exports.delete = function(req, res, params){
         });
 };
 
+/* Get playas favoritas */
+exports.favoritas = function (req, res) {
+    UsuariosModel.findOne({idFacebook : req.params.idFacebook})
+        .exec(function (err, usuario) {
+            if (!err) {
+                res.send(usuario.playasFavoritas);
+            } else {
+                console.log(err);
+                res.send(respuestaError);
+            }
+        });
+};
+
+
 /************************************************************************************/
 /*******    Otras funciones (internas)                                     **********/
 /************************************************************************************/
@@ -94,5 +122,13 @@ function revisamosParams(req, usuario){
         usuario.status = req.body.status;
     if(req.body.playasVisitadas != null)
         usuario.playasVisitadas.push(req.body.playasVisitadas);
+    if(req.body.playasFavoritas != null)
+        usuario.playasFavoritas.push(req.body.playasFavoritas);
+    if(req.body.playasValodaras != null)
+        usuario.playasValodaras.push(req.body.playasValodaras);
+    if(req.body.playasCreadas != null)
+        usuario.playasCreadas.push(req.body.playasCreadas);
+    if(req.body.playasActualizadas != null)
+        usuario.playasActualizadas.push(req.body.playasActualizadas);
 
 };

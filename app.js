@@ -67,7 +67,7 @@ routes = require('./routes/router')(app);
 
 
 //Connect to the MongoDB test database  
-mongoose.connect('mongodb://localhost/dephisit_db');  
+mongoose.connect('mongodb://localhost/playas_db');
   
 //Start the server  
 http.createServer(app).listen(3000);

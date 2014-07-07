@@ -4,6 +4,16 @@
 var mongoose = require('mongoose'),
     _ = require('underscore');
 
+exports.parseDate = function(fecha){
+    try {
+        var parts = fecha.split(" ");
+        var horas = parts[0].split(":");
+        var dias = parts[1].split("/");
+        return new Date(Date.UTC(dias[2], dias[1]-1, dias[0], horas[0], horas[1], horas[2]));
+    } catch (err){
+        return new Date();
+    }
+};
 
 /* Home View */
 exports.index = function(req, res) {

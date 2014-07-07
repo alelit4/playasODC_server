@@ -5,6 +5,7 @@ module.exports = function (app) {
     var utilities = require('../app/controllers/utilities');
     var playas = require('../app/controllers/playas');
     var usuarios = require('../app/controllers/usuarios');
+    var checkin = require('../app/controllers/checkin');
     var passport = require('passport');
 
     /* Home Page */
@@ -12,6 +13,7 @@ module.exports = function (app) {
 
     /* Playas */
     app.get('/playas', playas.getall);
+    app.get('/playas/:id', playas.get);
     app.put('/playas', playas.new);
     app.post('/playas/:id', playas.edit);
     app.post('/borrarplaya/:id', playas.borrar);
@@ -23,6 +25,12 @@ module.exports = function (app) {
     app.post('/usuarios/:idFacebook', usuarios.edit);
     app.delete('/usuarios/:idFacebook', usuarios.delete); // TODO -> arreglar (borra pero da error)
     app.delete('/borrarusuario/:id', usuarios.delete2); // para depurar
+
+    /* Checkin */
+    app.get('/checkin', checkin.getall);
+    app.get('/checkin/:idUsuario', checkin.get);
+    app.put('/checkin/:id', checkin.new);
+
 
     /* FUTURO */
     //petición get para acceder a la página de login

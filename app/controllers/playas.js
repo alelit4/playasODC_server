@@ -20,6 +20,17 @@ exports.getall = function (req, res) {
     });
 };
 
+/* A beach */
+exports.get = function (req, res) {
+    PlayasModel.findById( req.params.id, function (err, playas) {
+        if (!err) {
+            res.send(playas);
+        } else {
+            console.log(err);
+            res.send(respuestaError);
+        }
+    });
+};
 /* New beach */
 exports.new = function (req, res) {
     var playanueva = new PlayasModel({

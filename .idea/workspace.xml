@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="95bb9ff2-291f-44e0-a824-7e9571be7db2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/playas.js" afterPath="$PROJECT_DIR$/app/controllers/playas.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/router.js" afterPath="$PROJECT_DIR$/routes/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/usuarios.js" afterPath="$PROJECT_DIR$/app/controllers/usuarios.js" />
+      <change type="DELETED" beforePath="C:\Users\Ale\Dropbox\Actual\playasODC_server\app\controllers\signals.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ale\Dropbox\Actual\playasODC_server\app\models\signal.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PlayasODC_Server.iws" />
@@ -289,28 +288,32 @@
       <created>1404736214461</created>
       <updated>1404736214461</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Modelo -&gt; playas -&gt; getsome">
+      <created>1405429483260</created>
+      <updated>1405429483260</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-1032" width="1296" height="1000" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17734376" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17734376" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22732362" sideWeight="0.2171875" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22732362" sideWeight="0.78203124" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22732362" sideWeight="0.78203124" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -331,7 +334,8 @@
     <MESSAGE value="add/delete/edit/show playas + add/show usuarios&#10;(falta edit con arrays y arreglar delete usuarios)" />
     <MESSAGE value="check in, y algunas consultas de playas" />
     <MESSAGE value="playas favoritas de usuarios, arreglado parámetros para el edit de usuarios, ahora permite añadir playas favoritas, visitadas, valoradas, etc" />
-    <option name="LAST_COMMIT_MESSAGE" value="playas favoritas de usuarios, arreglado parámetros para el edit de usuarios, ahora permite añadir playas favoritas, visitadas, valoradas, etc" />
+    <MESSAGE value="Modelo -&gt; playas -&gt; getsome" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modelo -&gt; playas -&gt; getsome" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -381,11 +385,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/signal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="2" selection-start="406" selection-end="406" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="391" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/router.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="39" selection-start="704" selection-end="704" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="986">
@@ -410,16 +409,6 @@
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="68" column="26" selection-start="1737" selection-end="1737" vertical-scroll-proportion="0.0" vertical-offset="1156" max-vertical-offset="1377" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/signals.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="2" selection-start="270" selection-end="270" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="374" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/signal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="2" selection-start="406" selection-end="406" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/router.js">
@@ -448,16 +437,6 @@
         <state line="68" column="26" selection-start="1737" selection-end="1737" vertical-scroll-proportion="0.0" vertical-offset="1156" max-vertical-offset="1377" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/signals.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="2" selection-start="270" selection-end="270" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="374" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/signal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="57" selection-start="489" selection-end="489" vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="391" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/home.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="17" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0" vertical-offset="442" max-vertical-offset="901" />
@@ -466,11 +445,6 @@
     <entry file="file://$PROJECT_DIR$/public/css/appstyle.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="85" column="1" selection-start="1142" selection-end="1142" vertical-scroll-proportion="0.0" vertical-offset="974" max-vertical-offset="1547" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/signal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="57" selection-start="489" selection-end="489" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/home.ejs">
@@ -538,11 +512,6 @@
         <state line="38" column="22" selection-start="584" selection-end="584" vertical-scroll-proportion="0.4" vertical-offset="494" max-vertical-offset="2295" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/signal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="2" selection-start="406" selection-end="406" vertical-scroll-proportion="0.58157897" vertical-offset="0" max-vertical-offset="380" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/utilities.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="34" selection-start="260" selection-end="260" vertical-scroll-proportion="0.39170507" vertical-offset="0" max-vertical-offset="646" />
@@ -568,11 +537,6 @@
         <state line="174" column="40" selection-start="5353" selection-end="5353" vertical-scroll-proportion="0.2718894" vertical-offset="2840" max-vertical-offset="3451">
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/signals.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="272" selection-end="272" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/checkin.js">

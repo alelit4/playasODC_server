@@ -20,6 +20,21 @@ exports.getall = function (req, res) {
     });
 };
 
+/* some beaches */
+exports.getsome = function (req, res) {
+   console.log(req.body.playas);
+   PlayasModel.find({_id : {$all : req.body.playas }} , function (err, data) {
+        if (!err) {
+             console.log("Encontramos una playa" + data);
+             res.send(data);
+        } else {
+             console.log(err);
+             res.send(respuestaError);
+        }
+   });
+   res.send(respuestaOk);
+};
+
 /* A beach */
 exports.get = function (req, res) {
     PlayasModel.findById( req.params.id, function (err, playas) {

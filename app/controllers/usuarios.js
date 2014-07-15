@@ -65,6 +65,19 @@ exports.get = function (req, res) {
         });
 };
 
+/* Get user */
+exports.get_id = function (req, res) {
+    UsuariosModel.findOne({_id : req.params.id})
+        .exec(function (err, usuario) {
+            if (!err) {
+                res.send(usuario);
+            } else {
+                console.log(err);
+                res.send(respuestaError);
+            }
+        });
+};
+
 /* Delete user */
 exports.delete2 = function(req, res, params){
     UsuariosModel.findOne({_id : req.params.id})
@@ -98,8 +111,8 @@ exports.delete = function(req, res, params){
         });
 };
 
-/* Get playas favoritas */
-exports.favoritas = function (req, res) {
+/* Get playas favoritas por id*/
+exports.favoritas_id = function (req, res) {
     UsuariosModel.findOne({idFacebook : req.params.idFacebook})
         .exec(function (err, usuario) {
             if (!err) {
@@ -109,6 +122,43 @@ exports.favoritas = function (req, res) {
                 res.send(respuestaError);
             }
         });
+};
+
+
+/* Get playas favoritas */
+exports.favoritas = function (req, res) {
+    UsuariosModel.findOne({idFacebook : req.params.idFacebook})
+        .exec(function (err, usuario) {
+            if (!err) {
+                var ret = {};
+                _.each(usuario.playasFavoritas, function (id) {
+                    console.log('Soy la playa', id);
+                });
+                res.send(usuario.playasFavoritas);
+
+            } else {
+                console.log(err);
+                res.send(respuestaError);
+            }
+        });
+};
+
+
+/* Edit user */
+exports.deleteplaya = function (req, res, params) {
+    UsuariosModel.findOne({idFacebook : req.params.idFacebook})
+        .exec(function (err, usuario) {
+            if (!err) {
+                revisamosPlayas(req, usuario);
+                usuario.save();
+                console.log("Actualizamos el usuario", usuario);
+                res.send(respuestaOk);
+            } else {
+                console.log(err);
+                res.send(respuestaError);
+            }
+        });
+
 };
 
 
@@ -130,5 +180,19 @@ function revisamosParams(req, usuario){
         usuario.playasCreadas.push(req.body.playasCreadas);
     if(req.body.playasActualizadas != null)
         usuario.playasActualizadas.push(req.body.playasActualizadas);
+
+};
+
+function revisamosPlayas(req, usuario){
+    if(req.body.playasVisitadas != null)
+        usuario.playasVisitadas.delete(req.body.playasVisitadas); // TODO arreglar para borrar
+    if(req.body.playasFavoritas != null)
+        usuario.playasFavoritas.delete(req.body.playasFavoritas);
+    if(req.body.playasValodaras != null)
+        usuario.playasValodaras.delete(req.body.playasValodaras);
+    if(req.body.playasCreadas != null)
+        usuario.playasCreadas.delete(req.body.playasCreadas);
+    if(req.body.playasActualizadas != null)
+        usuario.playasActualizadas.delete(req.body.playasActualizadas);
 
 };

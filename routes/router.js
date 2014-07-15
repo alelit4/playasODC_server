@@ -13,6 +13,7 @@ module.exports = function (app) {
 
     /* Playas */
     app.get('/playas', playas.getall);
+    app.post('/algunasplayas', playas.getsome);
     app.get('/playas/:id', playas.get);
     app.put('/playas', playas.new);
     app.post('/playas/:id', playas.edit);
@@ -22,11 +23,16 @@ module.exports = function (app) {
     /* Usuarios */
     app.get('/usuarios', usuarios.getall);
     app.get('/usuarios/:idFacebook', usuarios.get);
+    app.get('/usuarios/:id', usuarios.get_id);
     app.put('/usuarios', usuarios.new);
     app.post('/usuarios/:idFacebook', usuarios.edit);
     app.delete('/usuarios/:idFacebook', usuarios.delete); // TODO -> arreglar (borra pero da error)
     app.delete('/borrarusuario/:id', usuarios.delete2); // para depurar
-    app.get('/playasfavoritas/:idFacebook', usuarios.favoritas);
+
+    /*Opciones avanzadas*/
+    app.post('/quitarplaya/:idFacebook', usuarios.deleteplaya);
+    app.get('/idplayasfavoritas/:idFacebook', usuarios.favoritas_id);
+    app.get('/playasfavoritas/:idFacebook', usuarios.favoritas); // <--
 
     /* Checkin */
     app.get('/checkin', checkin.getall);

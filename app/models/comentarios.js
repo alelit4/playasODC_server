@@ -6,7 +6,8 @@ var mongoose = require('mongoose'),
 
 var comentarioSchema = new Schema({
     idPlaya: String,
-    idUsuario: Number,
+    idUsuario: String,
+    valoracion: Number,
     fecha: Date,
     comentario: String
 });

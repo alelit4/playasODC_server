@@ -10,10 +10,11 @@ var playaSchema = new Schema({
     geo: {type: [Number], index: '2d'},
     banderaAzul: Boolean,
     dificultadAcceso: String,
-    limpieza: Number,
+    limpieza: String,
     tipoArena: String,
     activa: { type: Boolean, default: true }, // para controlar el borrado
     valoracion: { type: Number, default: 0 },
+    numeroValoraciones: {type: Number, default: 0},
     rompeolas: { type: Boolean, default: false },
     hamacas: { type: Boolean, default: false },
     sombrillas: { type: Boolean, default: false },

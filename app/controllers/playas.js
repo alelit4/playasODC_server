@@ -1,9 +1,16 @@
 var mongoose = require('mongoose'),
     _ = require('underscore');
 var PlayasModel = require('../models/playas');
+var ComentariosModel = require('../models/comentarios');
+var Utilities = require('./utilities');
 
 var respuestaOk = {"res" : "ok"}; // Respuestas en JSON para usar Volley y que no de problemas
 var respuestaError = {"res" : "error"};
+
+var falsy = /^(?:f(?:alse)?|no?|0+)$/i;
+Boolean.parse = function(val) { 
+    return !falsy.test(val) && !!val;
+};
 
 /************************************************************************************/
 /*******    API Responces                                                  **********/
@@ -48,22 +55,24 @@ exports.get = function (req, res) {
 };
 /* New beach */
 exports.new = function (req, res) {
+    console.log("Recibido: "+req.body);
     var playanueva = new PlayasModel({
         nombre : req.body.nombre,
         geo: [parseFloat(req.body.lon), parseFloat(req.body.lat)],
-        banderaAzul: req.body.banderaazul,
+        banderaAzul: Boolean.parse(req.body.banderaazul),
         dificultadAcceso:  req.body.acceso,
         tipoArena:  req.body.arena,
-        rompeolas:  req.body.rompeolas,
-        hamacas: req.body.hamacas,
-        sombrillas:  req.body.sombrillas,
-        chiringuitos:  req.body.chiringuitos,
-        duchas:  req.body.duchas,
-        socorrista:  req.body.socorristas
+        limpieza:  req.body.limpieza,
+        rompeolas:  Boolean.parse(req.body.rompeolas),
+        hamacas: Boolean.parse(req.body.hamacas),
+        sombrillas:  Boolean.parse(req.body.sombrillas),
+        chiringuitos:  Boolean.parse(req.body.chiringuitos),
+        duchas:  Boolean.parse(req.body.duchas),
+        socorrista:  Boolean.parse(req.body.socorristas)
     });
     playanueva.save();
     console.log("Creamos la playa", playanueva);
-    res.send(respuestaOk);
+    res.send(playanueva);
 };
 
 /* Edit beach */
@@ -81,6 +90,32 @@ exports.edit = function (req, res, params) {
         }
     });
 
+};
+
+exports.valorar = function (req, res, params) {
+    var comentario = new ComentariosModel({
+        idPlaya: req.params.idplaya,
+        idUsuario: req.params.idfb,
+        valoracion: parseFloat(req.body.valoracion),
+        fecha: Utilities.parseDate(req.body.fecha),
+        comentario: req.body.comentario
+    });
+
+    PlayasModel.findById(req.params.idplaya).exec(function (err, playa) {
+        if (!err) {
+            var total = playa.numeroValoraciones*playa.valoracion;
+            playa.numeroValoraciones = playa.numeroValoraciones + 1;
+            console.log(playa.numeroValoraciones);
+            playa.valoracion = (total + parseFloat(req.body.valoracion)) / playa.numeroValoraciones;
+            console.log(playa.valoracion);
+            playa.save();
+            comentario.save();
+            res.send(playa);
+        } else {
+            console.log(err);
+            res.send(respuestaError);
+        }
+    });
 };
 
 
@@ -125,21 +160,23 @@ function revisamosParams(req, playa){
     if(req.body.lon != null && req.body.lat != null)
         playa.geo = [parseFloat(req.body.lon), parseFloat(req.body.lat)];
     if(req.body.banderaazul != null)
-        playa.banderaAzul = req.body.banderaAzul;
+        playa.banderaAzul = Boolean.parse(req.body.banderaAzul);
     if(req.body.acceso != null)
         playa.dificultadAcceso = req.body.acceso;
     if(req.body.arena != null)
         playa.tipoArena = req.body.arena;
+    if(req.body.limpieza != null)
+        playa.limpieza = req.body.limpieza;
     if(req.body.rompeolas != null)
-        playa.rompeolas = req.body.rompeolas;
+        playa.rompeolas = Boolean.parse(req.body.rompeolas);
     if(req.body.hamacas != null)
-        playa.hamacas = req.body.hamacas;
+        playa.hamacas = Boolean.parse(req.body.hamacas);
     if(req.body.sombrillas != null)
-        playa.sombrillas = req.body.sombrillas;
+        playa.sombrillas = Boolean.parse(req.body.sombrillas);
     if(req.body.chiringuitos != null)
-        playa.chiringuitos = req.body.chiringuitos;
+        playa.chiringuitos = Boolean.parse(req.body.chiringuitos);
     if(req.body.duchas != null)
-        playa.duchas = req.body.duchas;
+        playa.duchas = Boolean.parse(req.body.duchas);
     if(req.body.socorristas != null)
-        playa.socorrista = req.body.socorristas;
+        playa.socorrista = Boolean.parse(req.body.socorristas);
 };

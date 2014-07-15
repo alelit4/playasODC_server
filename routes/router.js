@@ -15,10 +15,11 @@ module.exports = function (app) {
     app.get('/playas', playas.getall);
     app.post('/algunasplayas', playas.getsome);
     app.get('/playas/:id', playas.get);
-    app.put('/playas', playas.new);
-    app.post('/playas/:id', playas.edit);
+    app.post('/nuevaplaya', playas.new);
+    app.post('/editarplaya/:id', playas.edit);
+    app.post('/valoracionplaya/:idplaya/:idfb', playas.valorar);
     app.post('/borrarplaya/:id', playas.borrar);
-    app.delete('/playas/:id', playas.delete);
+    //app.delete('/playas/:id', playas.delete);
 
     /* Usuarios */
     app.get('/usuarios', usuarios.getall);

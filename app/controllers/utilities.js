@@ -7,9 +7,9 @@ var mongoose = require('mongoose'),
 exports.parseDate = function(fecha){
     try {
         var parts = fecha.split(" ");
-        var horas = parts[0].split(":");
-        var dias = parts[1].split("/");
-        return new Date(Date.UTC(dias[2], dias[1]-1, dias[0], horas[0], horas[1], horas[2]));
+        var dias = parts[0].split("/");
+        var horas = parts[1].split(":");
+        return new Date(Date.UTC(dias[2], dias[1]-1, dias[0], horas[0], horas[1], 0));
     } catch (err){
         return new Date();
     }

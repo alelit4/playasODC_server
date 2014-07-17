@@ -15,9 +15,19 @@ module.exports = function (app) {
     app.get('/playas', playas.getall);
     app.post('/algunasplayas', playas.getsome);
     app.get('/playas/:id', playas.get);
+
     app.post('/nuevaplaya', playas.new);
     app.post('/editarplaya/:id', playas.edit);
     app.post('/valoracionplaya/:idplaya/:idfb', playas.valorar);
+    app.post('/mensajebotellaplaya/:idplaya/:idfb', playas.mensajebotella);
+    app.get('/playascercanas/:latitud/:longitud', playas.playascercanas);
+    app.get('/playasbyname/:name', playas.playasbyname);
+    app.get('/ultimoscheckins/:idUsuario', playas.ultimoscheckins);
+
+    app.get('/mensajesplaya/:idPlaya', playas.mensajesplaya);
+    app.get('/comentariosplaya/:idPlaya', playas.comentariosplaya);
+
+
     app.post('/borrarplaya/:id', playas.borrar);
     //app.delete('/playas/:id', playas.delete);
 
@@ -38,7 +48,7 @@ module.exports = function (app) {
     /* Checkin */
     app.get('/checkin', checkin.getall);
     app.get('/checkin/:idUsuario', checkin.get);
-    app.put('/checkin/:id', checkin.new);
+    app.post('/checkin/:idUsuario/:idPlaya', checkin.new);
 
 
     /* FUTURO */

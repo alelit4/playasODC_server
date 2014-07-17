@@ -2,6 +2,8 @@ var mongoose = require('mongoose'),
     _ = require('underscore');
 var PlayasModel = require('../models/playas');
 var ComentariosModel = require('../models/comentarios');
+var MensajesModel = require('../models/mensajes');
+var CheckinModel = require('../models/checkin');
 var Utilities = require('./utilities');
 
 var respuestaOk = {"res" : "ok"}; // Respuestas en JSON para usar Volley y que no de problemas
@@ -44,15 +46,16 @@ exports.getsome = function (req, res) {
 
 /* A beach */
 exports.get = function (req, res) {
-    PlayasModel.findById( req.params.id, function (err, playas) {
+    PlayasModel.findById( req.params.id, function (err, playa) {
         if (!err) {
-            res.send(playas);
+            res.send(playa);
         } else {
             console.log(err);
             res.send(respuestaError);
         }
     });
 };
+
 /* New beach */
 exports.new = function (req, res) {
     console.log("Recibido: "+req.body);
@@ -71,7 +74,6 @@ exports.new = function (req, res) {
         socorrista:  Boolean.parse(req.body.socorristas)
     });
     playanueva.save();
-    console.log("Creamos la playa", playanueva);
     res.send(playanueva);
 };
 
@@ -82,7 +84,6 @@ exports.edit = function (req, res, params) {
         if (!err) {
             revisamosParams(req, playa);
             playa.save();
-            console.log("Actualizamos la playa", playa);
             res.send(respuestaOk);
         } else {
             console.log(err);
@@ -111,6 +112,91 @@ exports.valorar = function (req, res, params) {
             playa.save();
             comentario.save();
             res.send(playa);
+        } else {
+            console.log(err);
+            res.send(respuestaError);
+        }
+    });
+};
+
+exports.mensajebotella = function (req, res, params) {
+    var mensajeb = new MensajesModel({
+        idPlayaOrigen: req.params.idplaya,
+        idPlayaDestino: req.params.idplaya,
+        idUsuario: req.params.idfb,
+        fecha: Utilities.parseDate(req.body.fecha),
+        mensaje: req.body.mensaje
+    });
+
+    mensajeb.save();
+    // TODO: Enviar el nombre de la playa destino cuando sea aleatorio
+    res.send(respuestaOk);
+};
+
+exports.playascercanas = function (req, res) {
+    PlayasModel.find({geo: {$near: [parseFloat(req.params.longitud), parseFloat(req.params.latitud)], $maxDistance : 20000/111000.12}}).limit(20).exec(function (err, playas) {
+        if (!err) {
+            res.send(playas);
+        } else {
+            console.log(err);
+            res.send(respuestaError);
+        }
+    });
+};
+
+exports.playasbyname = function (req, res) {
+    PlayasModel.find({nombre: new RegExp(req.params.name, "i")}).limit(20).exec(function (err, playas) {
+        if (!err) {
+            res.send(playas);
+        } else {
+            console.log(err);
+            res.send(respuestaError);
+        }
+    });
+};
+
+exports.mensajesplaya = function (req, res) {
+    MensajesModel.find({idPlayaDestino: req.params.idPlaya}).limit(20).exec(function (err, mensajes) {
+        if (!err) {
+            res.send(mensajes);
+        } else {
+            console.log(err);
+            res.send(respuestaError);
+        }
+    });
+};
+
+exports.comentariosplaya = function (req, res) {
+    ComentariosModel.find({idPlaya: req.params.idPlaya}).limit(20).exec(function (err, comentarios) {
+        if (!err) {
+            res.send(comentarios);
+        } else {
+            console.log(err);
+            res.send(respuestaError);
+        }
+    });
+};
+
+exports.ultimoscheckins = function (req, res) {
+    CheckinModel.find({idUsuario: req.params.idUsuario}).sort({date: -1}).limit(5).exec(function (err, checkins) {
+        if (!err) {
+            var idplayas = checkins.map(function(x){return x.idPlaya});
+            PlayasModel.find({_id : {$in : idplayas}} , function (err, playas) {
+                if (!err) {
+                     playas.forEach(function (playa){
+                        checkins.forEach(function (checkin){
+                            if (checkin.idPlaya == playa._id){
+                                playa.checkin = checkin.fecha;
+                                return false;
+                            }
+                        });
+                     });
+                     res.send(playas);
+                } else {
+                     console.log(err);
+                     res.send(respuestaError);
+                }
+            });
         } else {
             console.log(err);
             res.send(respuestaError);

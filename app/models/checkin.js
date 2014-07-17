@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 var checkinSchema = new Schema({
     idPlaya: String,
-    idUsuario: Number,
+    idUsuario: String,
     fecha: Date
 });
 

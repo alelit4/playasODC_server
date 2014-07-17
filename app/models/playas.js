@@ -20,7 +20,8 @@ var playaSchema = new Schema({
     sombrillas: { type: Boolean, default: false },
     chiringuitos: { type: Boolean, default: false },
     duchas: { type: Boolean, default: false },
-    socorrista: { type: Boolean, default: false }
+    socorrista: { type: Boolean, default: false },
+    checkin : Date
 });
 
 

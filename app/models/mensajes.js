@@ -5,8 +5,9 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var mensajeSchema = new Schema({
-    idPlaya: String,
-    idUsuario: Number,
+    idPlayaOrigen: String,
+    idPlayaDestino: String,
+    idUsuario: String,
     fecha: Date,
     mensaje: String
 });

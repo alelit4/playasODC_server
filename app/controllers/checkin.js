@@ -1,8 +1,9 @@
 var mongoose = require('mongoose'),
     _ = require('underscore');
 var CheckinModel = require('../models/checkin');
-var utilities = require('../controllers/utilities');
+var Utilities = require('../controllers/utilities');
 var respuestaOk = {"res" : "ok"}; // Respuestas en JSON para usar Volley y que no de problemas
+var respuestaExiste = {"res" : "existe"};
 var respuestaError = {"res" : "error"};
 
 /************************************************************************************/
@@ -32,14 +33,24 @@ exports.get = function (req, res) {
 
 /* New checkin */
 exports.new = function (req, res) {
-    var checkinnuevo = new CheckinModel({
-        idPlaya: req.body.idPlaya,
-        idUsuario: req.params.id,
-        fecha : Date()
+    CheckinModel.find({idUsuario: req.params.idUsuario, idPlaya: req.params.idPlaya, fecha: {$gte: Utilities.parseDateOnlyDate(req.body.fecha)}}, function (err, checkins) {
+        if (!err) {
+            if ((checkins === undefined) || (checkins === null) || (checkins.length === 0)){
+                var checkinnuevo = new CheckinModel({
+                    idPlaya: req.params.idPlaya,
+                    idUsuario: req.params.idUsuario,
+                    fecha : Utilities.parseDate(req.body.fecha)
+                });
+                checkinnuevo.save();
+                res.send(respuestaOk);
+            } else {
+                res.send(respuestaExiste);
+            }
+        } else {
+            console.log(err);
+            res.send(respuestaError);
+        }
     });
-    checkinnuevo.save();
-    console.log("Creamos el checkin", checkinnuevo);
-    res.send(respuestaOk);
 };
 
 /************************************************************************************/
@@ -57,7 +68,7 @@ function checkinsSinRango(req, res){
 };
 
 function checkinsRango(req, res){
-    CheckinModel.find({idUsuario: req.params.idUsuario, fecha: {$lte: utilities.parseDate(req.body.fecha)} })
+    CheckinModel.find({idUsuario: req.params.idUsuario, fecha: {$lte: Utilities.parseDate(req.body.fecha)} })
         .exec( function (err, checkins) {
             if (!err) {
                 res.send(checkins);

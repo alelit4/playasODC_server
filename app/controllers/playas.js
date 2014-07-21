@@ -72,7 +72,7 @@ exports.new = function (req, res) {
         chiringuitos:  Boolean.parse(req.body.chiringuitos),
         duchas:  Boolean.parse(req.body.duchas),
         socorrista:  Boolean.parse(req.body.socorristas),
-		webURL:  req.body.webURL,
+		webcamURL:  req.body.webURL,
     });
     playanueva.save();
     res.send(playanueva);

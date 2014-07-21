@@ -22,7 +22,7 @@ var playaSchema = new Schema({
     duchas: { type: Boolean, default: false },
     socorrista: { type: Boolean, default: false },
     checkin : Date,
-	webURL : String,
+	webcamURL : String,
 });
 
 

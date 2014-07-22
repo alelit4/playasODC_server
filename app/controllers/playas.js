@@ -98,6 +98,7 @@ exports.valorar = function (req, res, params) {
     var comentario = new ComentariosModel({
         idPlaya: req.params.idplaya,
         idUsuario: req.params.idfb,
+        nombreUsuario: req.body.nombreautor,
         valoracion: parseFloat(req.body.valoracion),
         fecha: Utilities.parseDate(req.body.fecha),
         comentario: req.body.comentario

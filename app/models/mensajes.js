@@ -8,6 +8,7 @@ var mensajeSchema = new Schema({
     idPlayaOrigen: String,
     idPlayaDestino: String,
     idUsuario: String,
+    nombreUsuario: String,
     fecha: Date,
     mensaje: String
 });

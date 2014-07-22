@@ -126,6 +126,7 @@ exports.mensajebotella = function (req, res, params) {
         idPlayaOrigen: req.params.idplaya,
         idPlayaDestino: req.params.idplaya,
         idUsuario: req.params.idfb,
+        nombreUsuario: req.body.nombre,
         fecha: Utilities.parseDate(req.body.fecha),
         mensaje: req.body.mensaje
     });
@@ -136,7 +137,7 @@ exports.mensajebotella = function (req, res, params) {
 };
 
 exports.playascercanas = function (req, res) {
-    PlayasModel.find({geo: {$near: [parseFloat(req.params.longitud), parseFloat(req.params.latitud)], $maxDistance : 20000/111000.12}}).limit(20).exec(function (err, playas) {
+    PlayasModel.find({geo: {$near: [parseFloat(req.params.longitud), parseFloat(req.params.latitud)], $maxDistance : 25000/111000.12}}).limit(20).exec(function (err, playas) {
         if (!err) {
             res.send(playas);
         } else {
@@ -180,18 +181,22 @@ exports.comentariosplaya = function (req, res) {
 };
 
 exports.ultimoscheckins = function (req, res) {
-    CheckinModel.find({idUsuario: req.params.idUsuario}).sort({date: -1}).limit(5).exec(function (err, checkins) {
+    CheckinModel.find({idUsuario: req.params.idUsuario}).sort([["date", "ascending"]]).exec(function (err, checkins) {
         if (!err) {
             var idplayas = checkins.map(function(x){return x.idPlaya});
             PlayasModel.find({_id : {$in : idplayas}} , function (err, playas) {
                 if (!err) {
+                    var numbers = 0;
                      playas.forEach(function (playa){
                         checkins.forEach(function (checkin){
                             if (checkin.idPlaya == playa._id){
                                 playa.checkin = checkin.fecha;
+                                numbers++;
                                 return false;
                             }
                         });
+                        if (numbers == 5)
+                            return false;
                      });
                      res.send(playas);
                 } else {

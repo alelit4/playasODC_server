@@ -31,7 +31,6 @@ exports.getall = function (req, res) {
 
 /* some beaches */
 exports.getsome = function (req, res) {
-   console.log(req.body.playas);
    PlayasModel.find({_id : {$all : req.body.playas }} , function (err, data) {
         if (!err) {
              console.log("Encontramos una playa" + data);
@@ -80,8 +79,7 @@ exports.new = function (req, res) {
 
 /* Edit beach */
 exports.edit = function (req, res, params) {
-    PlayasModel.findById( req.params.id)
-    .exec(function (err, playa) {
+    PlayasModel.findById( req.params.id).exec(function (err, playa) {
         if (!err) {
             revisamosParams(req, playa);
             playa.save();
@@ -108,9 +106,7 @@ exports.valorar = function (req, res, params) {
         if (!err) {
             var total = playa.numeroValoraciones*playa.valoracion;
             playa.numeroValoraciones = playa.numeroValoraciones + 1;
-            console.log(playa.numeroValoraciones);
             playa.valoracion = (total + parseFloat(req.body.valoracion)) / playa.numeroValoraciones;
-            console.log(playa.valoracion);
             playa.save();
             comentario.save();
             res.send(playa);
@@ -126,7 +122,8 @@ exports.mensajebotella = function (req, res, params) {
         idPlayaOrigen: req.params.idplaya,
         idPlayaDestino: req.params.idplaya,
         idUsuario: req.params.idfb,
-        nombreUsuario: req.body.nombre,
+        nombrePlayaDestino: req.body.nombrePlaya,
+        nombreUsuario: req.body.nombreAutor,
         fecha: Utilities.parseDate(req.body.fecha),
         mensaje: req.body.mensaje
     });
@@ -214,12 +211,10 @@ exports.ultimoscheckins = function (req, res) {
 
 /* "Borrar" beach */
 exports.borrar = function (req, res, params) {
-    PlayasModel.findById( req.params.id)
-        .exec(function (err, playa) {
+    PlayasModel.findById( req.params.id).exec(function (err, playa) {
             if (!err) {
-                playa.activa = false;
+                playa.peticionBorrado = true;
                 playa.save();
-                console.log("Borramos la playa", playa);
                 res.send(respuestaOk);
             } else {
                 console.log(err);
@@ -252,9 +247,9 @@ function revisamosParams(req, playa){
         playa.nombre = req.body.nombre;
     if(req.body.lon != null && req.body.lat != null)
         playa.geo = [parseFloat(req.body.lon), parseFloat(req.body.lat)];
-    if(req.body.banderaazul != null)
-        playa.banderaAzul = Boolean.parse(req.body.banderaAzul);
-    if(req.body.acceso != null)
+    if(req.body.banderaazul != null){
+        playa.banderaAzul = Boolean.parse(req.body.banderaazul);
+    } if(req.body.acceso != null)
         playa.dificultadAcceso = req.body.acceso;
     if(req.body.arena != null)
         playa.tipoArena = req.body.arena;
@@ -270,6 +265,6 @@ function revisamosParams(req, playa){
         playa.chiringuitos = Boolean.parse(req.body.chiringuitos);
     if(req.body.duchas != null)
         playa.duchas = Boolean.parse(req.body.duchas);
-    if(req.body.socorristas != null)
-        playa.socorrista = Boolean.parse(req.body.socorristas);
+    if(req.body.socorrista != null)
+        playa.socorrista = Boolean.parse(req.body.socorrista);
 };

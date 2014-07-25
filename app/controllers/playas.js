@@ -8,6 +8,7 @@ var Utilities = require('./utilities');
 
 var respuestaOk = {"res" : "ok"}; // Respuestas en JSON para usar Volley y que no de problemas
 var respuestaError = {"res" : "error"};
+var respuestaExiste = {"res" : "existe"};
 
 var falsy = /^(?:f(?:alse)?|no?|0+)$/i;
 Boolean.parse = function(val) { 
@@ -57,24 +58,34 @@ exports.get = function (req, res) {
 
 /* New beach */
 exports.new = function (req, res) {
-    console.log("Recibido: "+req.body);
-    var playanueva = new PlayasModel({
-        nombre : req.body.nombre,
-        geo: [parseFloat(req.body.lon), parseFloat(req.body.lat)],
-        banderaAzul: Boolean.parse(req.body.banderaazul),
-        dificultadAcceso:  req.body.acceso,
-        tipoArena:  req.body.arena,
-        limpieza:  req.body.limpieza,
-        rompeolas:  Boolean.parse(req.body.rompeolas),
-        hamacas: Boolean.parse(req.body.hamacas),
-        sombrillas:  Boolean.parse(req.body.sombrillas),
-        chiringuitos:  Boolean.parse(req.body.chiringuitos),
-        duchas:  Boolean.parse(req.body.duchas),
-        socorrista:  Boolean.parse(req.body.socorristas),
-		webcamURL:  req.body.webcamURL,
+    PlayasModel.find({geo: {$near: [parseFloat(req.body.lon), parseFloat(req.body.lat)], $maxDistance : 100/111000.12}}).exec(function (err, playas) {
+        if (!err) {
+            if ((playas !== undefined) && (playas !== null) && (playas.length > 0)){
+                res.send(respuestaExiste);
+            } else {
+                var playanueva = new PlayasModel({
+                    nombre : req.body.nombre,
+                    geo: [parseFloat(req.body.lon), parseFloat(req.body.lat)],
+                    banderaAzul: Boolean.parse(req.body.banderaazul),
+                    dificultadAcceso:  req.body.acceso,
+                    tipoArena:  req.body.arena,
+                    limpieza:  req.body.limpieza,
+                    rompeolas:  Boolean.parse(req.body.rompeolas),
+                    hamacas: Boolean.parse(req.body.hamacas),
+                    sombrillas:  Boolean.parse(req.body.sombrillas),
+                    chiringuitos:  Boolean.parse(req.body.chiringuitos),
+                    duchas:  Boolean.parse(req.body.duchas),
+                    socorrista:  Boolean.parse(req.body.socorristas),
+                    webcamURL:  req.body.webcamURL,
+                });
+                playanueva.save();
+                res.send(playanueva);
+            }
+        } else {
+            res.send(respuestaError);
+        }
+        
     });
-    playanueva.save();
-    res.send(playanueva);
 };
 
 /* Edit beach */

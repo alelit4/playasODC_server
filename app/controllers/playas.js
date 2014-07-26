@@ -104,23 +104,34 @@ exports.edit = function (req, res, params) {
 };
 
 exports.valorar = function (req, res, params) {
-    var comentario = new ComentariosModel({
-        idPlaya: req.params.idplaya,
-        idUsuario: req.params.idfb,
-        nombreUsuario: req.body.nombreautor,
-        valoracion: parseFloat(req.body.valoracion),
-        fecha: Utilities.parseDate(req.body.fecha),
-        comentario: req.body.comentario
-    });
-
-    PlayasModel.findById(req.params.idplaya).exec(function (err, playa) {
+    ComentariosModel.find({idUsuario: req.params.idfb, idPlaya: req.params.idplaya, fecha: {$gte: Utilities.parseDateOnlyDate(req.body.fecha)}}, function (err, comentarios) {
         if (!err) {
-            var total = playa.numeroValoraciones*playa.valoracion;
-            playa.numeroValoraciones = playa.numeroValoraciones + 1;
-            playa.valoracion = (total + parseFloat(req.body.valoracion)) / playa.numeroValoraciones;
-            playa.save();
-            comentario.save();
-            res.send(playa);
+            if ((comentarios === undefined) || (comentarios === null) || (comentarios.length === 0)){
+                var comentario = new ComentariosModel({
+                    idPlaya: req.params.idplaya,
+                    idUsuario: req.params.idfb,
+                    nombreUsuario: req.body.nombreautor,
+                    valoracion: parseFloat(req.body.valoracion),
+                    fecha: Utilities.parseDate(req.body.fecha),
+                    comentario: req.body.comentario
+                });
+
+                PlayasModel.findById(req.params.idplaya).exec(function (err, playa) {
+                    if (!err) {
+                        var total = playa.numeroValoraciones*playa.valoracion;
+                        playa.numeroValoraciones = playa.numeroValoraciones + 1;
+                        playa.valoracion = (total + parseFloat(req.body.valoracion)) / playa.numeroValoraciones;
+                        playa.save();
+                        comentario.save();
+                        res.send(playa);
+                    } else {
+                        console.log(err);
+                        res.send(respuestaError);
+                    }
+                });
+            } else {
+                res.send(respuestaExiste);
+            }
         } else {
             console.log(err);
             res.send(respuestaError);

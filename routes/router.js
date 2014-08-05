@@ -24,6 +24,8 @@ module.exports = function (app) {
     app.get('/playasbyname/:name', playas.playasbyname);
     app.get('/ultimoscheckins/:idUsuario', playas.ultimoscheckins);
 
+    app.post('/nuevaimagen/:idplaya/:idfb', playas.nuevaimagen);
+
     app.get('/mensajesplaya/:idPlaya', playas.mensajesplaya);
     app.get('/comentariosplaya/:idPlaya', playas.comentariosplaya);
 

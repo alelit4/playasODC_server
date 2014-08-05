@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 var PlayasModel = require('../models/playas');
 var ComentariosModel = require('../models/comentarios');
 var MensajesModel = require('../models/mensajes');
+var ImagenesModel = require('../models/imagenes');
 var CheckinModel = require('../models/checkin');
 var Utilities = require('./utilities');
 
@@ -152,6 +153,21 @@ exports.mensajebotella = function (req, res, params) {
 
     mensajeb.save();
     // TODO: Enviar el nombre de la playa destino cuando sea aleatorio
+    res.send(respuestaOk);
+};
+
+exports.nuevaimagen = function (req, res, params) {
+    var imagen = new ImagenesModel({
+        idPlaya: req.params.idplaya,
+        idUsuario: req.params.idfb,
+        nombreUsuario: req.body.nombreAutor,
+        fecha: Utilities.parseDate(req.body.fecha),
+        comentario: req.body.comentario,
+        link: req.body.link
+    });
+
+    imagen.save();
+
     res.send(respuestaOk);
 };
 

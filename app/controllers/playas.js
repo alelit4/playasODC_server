@@ -204,6 +204,17 @@ exports.mensajesplaya = function (req, res) {
     });
 };
 
+exports.imagenesplaya = function (req, res) {
+    ImagenesModel.find({idPlaya: req.params.idPlaya}).limit(20).exec(function (err, imagenes) {
+        if (!err) {
+            res.send(imagenes);
+        } else {
+            console.log(err);
+            res.send(respuestaError);
+        }
+    });
+};
+
 exports.comentariosplaya = function (req, res) {
     ComentariosModel.find({idPlaya: req.params.idPlaya}).limit(20).exec(function (err, comentarios) {
         if (!err) {

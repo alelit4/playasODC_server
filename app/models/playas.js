@@ -20,6 +20,7 @@ var playaSchema = new Schema({
     hamacas: { type: Boolean, default: false },
     sombrillas: { type: Boolean, default: false },
     chiringuitos: { type: Boolean, default: false },
+    perros: { type: Boolean, default: false },
     duchas: { type: Boolean, default: false },
     socorrista: { type: Boolean, default: false },
     checkin : Date,

@@ -147,6 +147,7 @@ var getCSV = function(){
               sombrillas: sombrillas,
               chiringuitos: chiringuitos,
               duchas: duchas,
+              perros: false,
               socorrista: socorrista,
               webcamURL: webcam,
             });
@@ -177,5 +178,17 @@ var getCSV = function(){
                         }
                     }); */ 
 };
+
+var updatePerros = function(){
+  PlayasModel.find(function (err, playas) {
+        playas.forEach(function(playa){
+            playa.perros = false;
+            playa.save();
+        });
+        console.log("Actualizado Modelo");
+    });
+}
+
+updatePerros();
 
 //getCSV();

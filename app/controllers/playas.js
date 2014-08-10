@@ -76,6 +76,8 @@ exports.new = function (req, res) {
                     sombrillas:  Boolean.parse(req.body.sombrillas),
                     chiringuitos:  Boolean.parse(req.body.chiringuitos),
                     perros: Boolean.parse(req.body.perros),
+                    nudista: Boolean.parse(req.body.nudista),
+                    cerrada: Boolean.parse(req.body.cerrada),
                     duchas:  Boolean.parse(req.body.duchas),
                     socorrista:  Boolean.parse(req.body.socorristas),
                     webcamURL:  req.body.webcamURL,
@@ -317,6 +319,10 @@ function revisamosParams(req, playa){
         playa.duchas = Boolean.parse(req.body.duchas);
     if(req.body.perros != null)
         playa.perros = Boolean.parse(req.body.perros);
+    if(req.body.cerrada != null)
+        playa.cerrada = Boolean.parse(req.body.cerrada);
+    if(req.body.nudista != null)
+        playa.nudista = Boolean.parse(req.body.nudista);
     if(req.body.socorrista != null)
         playa.socorrista = Boolean.parse(req.body.socorrista);
 };

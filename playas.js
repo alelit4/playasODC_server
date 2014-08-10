@@ -179,16 +179,17 @@ var getCSV = function(){
                     }); */ 
 };
 
-var updatePerros = function(){
+var updateAtr = function(){
   PlayasModel.find(function (err, playas) {
         playas.forEach(function(playa){
-            playa.perros = false;
+            playa.nudista = false;
+            playa.cerrada = false;
             playa.save();
         });
         console.log("Actualizado Modelo");
     });
 }
 
-updatePerros();
+//updateAtr();
 
 //getCSV();

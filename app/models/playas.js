@@ -23,6 +23,8 @@ var playaSchema = new Schema({
     perros: { type: Boolean, default: false },
     duchas: { type: Boolean, default: false },
     socorrista: { type: Boolean, default: false },
+    nudista: { type: Boolean, default: false },
+    cerrada: { type: Boolean, default: false },
     checkin : Date,
 	webcamURL : String,
 });

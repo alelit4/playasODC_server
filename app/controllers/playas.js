@@ -276,13 +276,11 @@ exports.borrar = function (req, res, params) {
 };
 
 /* Delete beach */
-exports.delete = function(req, res, params){
-    PlayasModel.findOne({_id : req.params.id})
-        .exec(function (err, playa) {
+exports.deleteImage = function(req, res, params){
+    ImagenesModel.findOne({_id : req.params.id}).exec(function (err, imagen) {
             if (!err) {
-                console.log("Borramos la playa", playa);
-                if(playa != null){
-                    playa.remove();
+                if ((imagen !== null) && (imagen !== undefined)){
+                    imagen.remove();
                     res.send(respuestaOk);
                 }
             }
@@ -325,4 +323,77 @@ function revisamosParams(req, playa){
         playa.nudista = Boolean.parse(req.body.nudista);
     if(req.body.socorrista != null)
         playa.socorrista = Boolean.parse(req.body.socorrista);
+};
+
+exports.mergeBeaches = function (req, res) {
+    try {
+        PlayasModel.findById(req.params.idPlayaRemove, function (err, playa) {
+            if (!err) {
+                CheckinModel.find({idPlaya: req.params.idPlayaRemove}).exec(function (err, checkins) {
+                    if (!err) {  
+                        ComentariosModel.find({idPlaya: req.params.idPlayaRemove}).exec(function (err, comentarios) {
+                            if (!err) {  
+                                ImagenesModel.find({idPlaya: req.params.idPlayaRemove}).exec(function (err, imagenes) {
+                                    if (!err) {
+                                        MensajesModel.find({idPlayaOrigen: req.params.idPlayaRemove}).exec(function (err, mensajes) {
+                                            if (!err) {
+                                                checkins.forEach(function (checkin){
+                                                    checkin.idPlaya = req.params.idPlaya;
+                                                    checkin.save();
+                                                });
+                                                comentarios.forEach(function (comentario){
+                                                    comentario.idPlaya = req.params.idPlaya;
+                                                    comentario.save();
+                                                });
+                                                imagenes.forEach(function (imagen){
+                                                    imagen.idPlaya = req.params.idPlaya;
+                                                    imagen.save();
+                                                });
+                                                mensajes.forEach(function (mensaje){
+                                                    mensaje.idPlayaOrigen = req.params.idPlaya;
+                                                    mensaje.idPlayaDestino = req.params.idPlaya;
+                                                    mensaje.save();
+                                                });
+                                                playa.remove();
+                                                res.send(respuestaOk);
+                                            } else {
+                                                console.log(err);
+                                                res.send(respuestaError);
+                                            }
+                                        });
+                                    } else {
+                                        console.log(err);
+                                        res.send(respuestaError);
+                                    }
+                                });
+                            } else {
+                                console.log(err);
+                                res.send(respuestaError);
+                            }
+                        });
+                    } else {
+                        console.log(err);
+                        res.send(respuestaError);
+                    }
+                });
+            } else {
+                console.log(err);
+                res.send(respuestaError);
+            }
+        } catch (err){
+            console.log("|Error al fusionar playas: "+req.params.idPlayaRemove+" con la Playa "+req.params.idPlaya+"| --> "+err);
+            res.send(respuestaError);
+        }
+    });
+};
+
+exports.playascercanasRemove = function (req, res) {
+    PlayasModel.find({geo: {$near: [parseFloat(req.params.longitud), parseFloat(req.params.latitud)], $maxDistance : 30000/111000.12}}).limit(50).exec(function (err, playas) {
+        if (!err) {
+            res.send(playas);
+        } else {
+            console.log(err);
+            res.send(respuestaError);
+        }
+    });
 };

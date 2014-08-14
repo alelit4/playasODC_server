@@ -30,23 +30,28 @@ module.exports = function (app) {
     app.get('/mensajesplaya/:idPlaya', playas.mensajesplaya);
     app.get('/comentariosplaya/:idPlaya', playas.comentariosplaya);
 
+    // ADMIN
+    app.post('/mergebeaches/:idPlayaRemove/:idPlaya', playas.mergeBeaches);
+    app.post('/deleteimage/:id', playas.deleteImage);
+    app.get('/playascercanasremove/:latitud/:longitud', playas.playascercanasRemove);
+    // ADMIN
 
     app.post('/borrarplaya/:id', playas.borrar);
     //app.delete('/playas/:id', playas.delete);
 
     /* Usuarios */
-    app.get('/usuarios', usuarios.getall);
+    /*app.get('/usuarios', usuarios.getall);
     app.get('/usuarios/:idFacebook', usuarios.get);
     app.get('/usuarios/:id', usuarios.get_id);
     app.put('/usuarios', usuarios.new);
     app.post('/usuarios/:idFacebook', usuarios.edit);
     app.delete('/usuarios/:idFacebook', usuarios.delete); // TODO -> arreglar (borra pero da error)
-    app.delete('/borrarusuario/:id', usuarios.delete2); // para depurar
+    app.delete('/borrarusuario/:id', usuarios.delete2); // para depurar*/
 
     /*Opciones avanzadas*/
-    app.post('/quitarplaya/:idFacebook', usuarios.deleteplaya);
+   /* app.post('/quitarplaya/:idFacebook', usuarios.deleteplaya);
     app.get('/idplayasfavoritas/:idFacebook', usuarios.favoritas_id);
-    app.get('/playasfavoritas/:idFacebook', usuarios.favoritas); // <--
+    app.get('/playasfavoritas/:idFacebook', usuarios.favoritas); // <--*/
 
     /* Checkin */
     app.get('/checkin', checkin.getall);
@@ -56,7 +61,7 @@ module.exports = function (app) {
 
     /* FUTURO */
     //petición get para acceder a la página de login
-    app.get('/login', utilities.index);
+    /*app.get('/login', utilities.index);
     //petición post para hacer el login
     app.post('/login', user.authenticate);
     //petición post para registrar un usuario
@@ -78,6 +83,6 @@ module.exports = function (app) {
 
         // if they aren't redirect them to the home page
         res.redirect('/');
-    }
+    }*/
 
 }

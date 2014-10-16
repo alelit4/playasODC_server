@@ -196,6 +196,91 @@ exports.playasbyname = function (req, res) {
     });
 };
 
+exports.playasbyextras = function (req, res) {
+    var fields = {};
+    var geo = false;
+    var extra = false;
+    if(req.params.nombre != 'null'){
+        fields["nombre"] = new RegExp(req.params.nombre, "i");
+        extra = true;
+    }
+    if(req.params.lon != 'null' && req.params.lat != 'null')
+        geo = true;
+    if(req.params.banderaazul != 'null'){
+        fields["banderaAzul"] = Boolean.parse(req.params.banderaazul);
+        extra = true;
+    } 
+    if(req.params.acceso != 'null'){
+        fields["dificultadAcceso"] = req.params.acceso;
+        extra = true;
+    }if(req.params.arena != 'null'){
+        fields["tipoArena"] = req.params.arena;
+        extra = true;
+    }if(req.params.limpieza != 'null'){
+        fields["limpieza"] = req.params.limpieza;
+        extra = true;
+    }if(req.params.rompeolas != 'null'){
+        fields["rompeolas"] = Boolean.parse(req.params.rompeolas);
+        extra = true;
+    }if(req.params.hamacas != 'null'){
+        fields["hamacas"] = Boolean.parse(req.params.hamacas);
+        extra = true;
+    }if(req.params.sombrillas != 'null'){
+        fields["sombrillas"] = Boolean.parse(req.params.sombrillas);
+        extra = true;
+    }if(req.params.chiringuitos != 'null'){
+        fields["chiringuitos"] = Boolean.parse(req.params.chiringuitos);
+        extra = true;
+    }if(req.params.duchas != 'null'){
+        fields["duchas"] = Boolean.parse(req.params.duchas);
+        extra = true;
+    }if(req.params.perros != 'null'){
+        fields["perros"] = Boolean.parse(req.params.perros);
+        extra = true;
+    }if(req.params.cerrada != 'null'){
+        fields["cerrada"] = Boolean.parse(req.params.cerrada);
+        extra = true;
+    }if(req.params.nudista != 'null'){
+        fields["nudista"] = Boolean.parse(req.params.nudista);
+        extra = true;
+    }if(req.params.socorrista != 'null'){
+        fields["socorrista"] = Boolean.parse(req.params.socorrista);
+        extra = true;
+    }
+    
+    if (geo){
+        PlayasModel.find({geo: {$near: [parseFloat(req.params.lon), parseFloat(req.params.lat)], $maxDistance : 25000/111000.12}}).find(fields).limit(20).exec(function (err, playas) {
+            if (!err) {
+                if ((playas.length === 0) && (extra)){
+                    console.log(fields);
+                    PlayasModel.find(fields).limit(20).exec(function (err, playas) {
+                        if (!err) {
+                            res.send(playas);
+                        } else {
+                            console.log(err);
+                            res.send(respuestaError);
+                        }
+                    });
+                } else {
+                    res.send(playas);
+                }
+            } else {
+                console.log(err);
+                res.send(respuestaError);
+            }
+        });
+    } else {
+        PlayasModel.find(fields).limit(20).exec(function (err, playas) {
+            if (!err) {
+                res.send(playas);
+            } else {
+                console.log(err);
+                res.send(respuestaError);
+            }
+        });
+    }
+};
+
 exports.mensajesplaya = function (req, res) {
     MensajesModel.find({idPlayaDestino: req.params.idPlaya}).limit(20).exec(function (err, mensajes) {
         if (!err) {

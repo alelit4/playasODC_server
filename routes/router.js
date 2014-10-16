@@ -22,6 +22,7 @@ module.exports = function (app) {
     app.post('/mensajebotellaplaya/:idplaya/:idfb', playas.mensajebotella);
     app.get('/playascercanas/:latitud/:longitud', playas.playascercanas);
     app.get('/playasbyname/:name', playas.playasbyname);
+    app.get('/playasbyextras/:nombre/:lon/:lat/:banderaazul/:acceso/:arena/:limpieza/:rompeolas/:hamacas/:sombrillas/:chiringuitos/:duchas/:perros/:cerrada/:nudista/:socorrista', playas.playasbyextras);
     app.get('/ultimoscheckins/:idUsuario', playas.ultimoscheckins);
 
     app.post('/nuevaimagen/:idplaya/:idfb', playas.nuevaimagen);
